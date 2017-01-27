@@ -23,19 +23,18 @@ class LinkedList {
     }
 
     head() {
-    	return this._head;
+    	return this._head.data;
     	//this._head should exist
     }
 
     tail() {
-    	return this._tail;
+    	return this._tail.data;
     	//this._tail should exist
     }
 
     at(index) {
     	var currentNode = this._head,
-    	length = this.length,
-    	count = 1;
+    	count = 0;
     	//index should be valid
 
     	while (count < index) {
@@ -43,7 +42,7 @@ class LinkedList {
     		count++;
     	}
 
-    	return currentNode;
+    	return currentNode.data;
     }
 
     insertAt(index, data) {
