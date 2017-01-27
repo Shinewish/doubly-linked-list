@@ -3,37 +3,37 @@ const Node = require('./node');
 class LinkedList {
     constructor() {
     	this.length = 0;
-    	this.head = null;
-    	this.tail = null;
+    	this._head = null;
+    	this._tail = null;
     }
 
     append(data) {
     	var node = new Node(data);
 
     	if (this.length) {
-    		this.tail.next = node;
-    		node.prev = this.tail;
-    		this.tail = node;
+    		this._tail.next = node;
+    		node.prev = this._tail;
+    		this._tail = node;
     	} else {
-    		this.head = node;
-    		this.tail = node;
+    		this._head = node;
+    		this._tail = node;
     	}
 
     	this.length++;
     }
 
     head() {
-    	return this.head;
-    	//this.head should exist
+    	return this._head;
+    	//this._head should exist
     }
 
     tail() {
-    	return this.tail;
-    	//this.tail should exist
+    	return this._tail;
+    	//this._tail should exist
     }
 
     at(index) {
-    	var currentNode = this.head,
+    	var currentNode = this._head,
     	length = this.length,
     	count = 1;
     	//index should be valid
@@ -65,12 +65,12 @@ class LinkedList {
 
     clear() {
     	this.length = 0;
-    	this.head = null;
-    	this.tail = null;
+    	this.__head = null;
+    	this._tail = null;
     }
 
     deleteAt(index) {    	
-		var currentNode = this.head,
+		var currentNode = this.__head,
         length = this.length,
         count = 1,
         DelNodePrev = null,
@@ -79,20 +79,20 @@ class LinkedList {
  
     // first node
     if (index === 1) {
-        this.head = currentNode.next;
+        this.__head = currentNode.next;
          // second node exists
-        if (!this.head) {
-            this.head.prev = null;
+        if (!this._head) {
+            this._head.prev = null;
         // no second node
         } else {
-            this.tail = null;
+            this._tail = null;
         }
 
     } else if (index === this.length) {
 
     	// last node
-    	this.tail = this.tail.previous;
-        this.tail.next = null;
+    	this._tail = this._tail.previous;
+        this._tail.next = null;
 
 	} else {
 
@@ -114,7 +114,7 @@ class LinkedList {
     }
 
     reverse() {
-    	var currentNode = this.head,
+    	var currentNode = this._head,
     	length = this.length,
         count = 1;
 
@@ -128,7 +128,7 @@ class LinkedList {
         return this;
     	//didn't work
     	/*var secondList = new LinkedList;
-    		currentNode = this.tail,
+    		currentNode = this._tail,
         	count = this.length;
 
     	while (count > 0) {
@@ -148,14 +148,14 @@ class LinkedList {
     }
 
     indexOf(data) {
-    	var currentNode = this.head,
+    	var currentNode = this._head,
         	length = this.length,
         	index = -1,
     		count = 1;
 
     	
     	while (count <= this.length) {
-        	if (currentNode.data) === data {
+        	if (currentNode.data === data) {
         		index = count - 1;
         	}
         	currentNode = currentNode.next;
