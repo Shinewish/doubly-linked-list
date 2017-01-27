@@ -20,6 +20,8 @@ class LinkedList {
     	}
 
     	this.length++;
+
+    	return this;
     }
 
     head() {
@@ -36,7 +38,6 @@ class LinkedList {
     	} else {
     		return this._tail.data;
     	}
-    	//this._tail should exist
     }
 
     at(index) {
@@ -57,6 +58,9 @@ class LinkedList {
     		currentNode = this._head,
     		count = 0;
 
+    	if (this.length === 0) {
+    		this.append(data);
+    	} else {
     	while (count < index) {
     		currentNode = currentNode.next;
     		count++;
@@ -70,6 +74,9 @@ class LinkedList {
     	currentNode.prev = node;
 
     	this.length++;
+    	}
+
+    	return this;
     }
 
     isEmpty() {
@@ -80,6 +87,8 @@ class LinkedList {
     	this._head = null;
     	this._tail = null;    	
     	this.length = 0;
+
+    	return this;
     }
 
     deleteAt(index) {    	
@@ -91,7 +100,7 @@ class LinkedList {
     if (index === 0) {
         this._head = currentNode.next;
          // second node exists
-        if (!this._head) {
+        if (this._head) {
             this._head.prev = null;
         // no second node
         } else {
@@ -119,6 +128,8 @@ class LinkedList {
     }
 
     	this.length--;
+
+    	return this;
     }
 
     reverse() {
@@ -137,6 +148,8 @@ class LinkedList {
         	currentNode = currentNode.prev;
         	count++;
         }
+
+        return this;
 
 
     	//didn't work

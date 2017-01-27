@@ -144,6 +144,18 @@ describe('LinkedList', () => {
             expect(list.at(3)).to.equal(3);
             expect(list.at(4)).to.equal(2);
         });
+                it('should reverse one', () => {
+            const list = new LinkedList();
+
+            list.append(1);
+           
+            list.reverse();
+
+            expect(list.head()).to.equal(1);
+            expect(list.tail()).to.equal(1);
+
+            expect(list.at(0)).to.equal(1);
+        });
     });
     describe('#indexOf', () => {
         it('should return index of element if data is found', () => {
@@ -169,6 +181,7 @@ describe('LinkedList', () => {
             const list = new LinkedList();
 
             function fn() {
+            //    list.append(4).reverse().clear().insertAt(0, 3);
                 list.append(4).reverse().deleteAt(0).clear().insertAt(0, 3);
             }
 
