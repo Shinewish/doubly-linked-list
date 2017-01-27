@@ -23,12 +23,19 @@ class LinkedList {
     }
 
     head() {
+    	if (this._head === null) {
+    		return null;
+    	} else {
     	return this._head.data;
-    	//this._head should exist
+    	}
     }
 
     tail() {
-    	return this._tail.data;
+    	if (this._tail === null) {
+    		return null;
+    	} else {
+    		return this._tail.data;
+    	}
     	//this._tail should exist
     }
 
