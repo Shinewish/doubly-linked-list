@@ -56,16 +56,6 @@ class LinkedList {
     	currentNode.prev = node;
 
 
-
-    	/*if (this.length) {
-    		this.tail.next = node;
-    		node.prev = this.tail;
-    		this.tail = node;
-    	} else {
-    		this.head = node;
-    		this.tail = node;
-    	} */
-
     	this.length++;
     }
 
@@ -98,7 +88,7 @@ class LinkedList {
             this.tail = null;
         }
 
-    } else if (index === this._length) {
+    } else if (index === this.length) {
 
     	// last node
     	this.tail = this.tail.previous;
@@ -120,11 +110,24 @@ class LinkedList {
         DelNode = null;
     }
 
-    	this._length--;
+    	this.length--;
     }
 
     reverse() {
-    	var secondList = new LinkedList;
+    	var currentNode = this.head,
+    	length = this.length,
+        count = 1;
+
+    	while (count < length) {
+        	temp = currentNode;
+        	currentNode.next = currentNode.prev;
+        	currentNode.prev = temp.next;
+        	currentNode = temp.next;
+        }
+
+        return this;
+    	//didn't work
+    	/*var secondList = new LinkedList;
     		currentNode = this.tail,
         	count = this.length;
 
@@ -134,7 +137,14 @@ class LinkedList {
         	count--;
         }
 
-        this = secondList;
+        count = 0;
+        */
+
+        /*while (count < length) {
+        	secondList.append(currentNode.data);
+        	currentNode = currentNode.prev;
+        	count--;
+        }*/
     }
 
     indexOf(data) {
@@ -145,7 +155,7 @@ class LinkedList {
 
     	
     	while (count <= this.length) {
-        	if (currentNode) === data {
+        	if (currentNode.data) === data {
         		index = count - 1;
         	}
         	currentNode = currentNode.next;
