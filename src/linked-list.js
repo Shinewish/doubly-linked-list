@@ -83,16 +83,13 @@ class LinkedList {
     }
 
     deleteAt(index) {    	
-		var currentNode = this.__head,
+		var currentNode = this._head,
         length = this.length,
-        count = 1,
-        DelNodePrev = null,
-        DelNode = null,
-        DelNodeNext = null;
+        count = 0;
  
     // first node
-    if (index === 1) {
-        this.__head = currentNode.next;
+    if (index === 0) {
+        this._head = currentNode.next;
          // second node exists
         if (!this._head) {
             this._head.prev = null;
@@ -101,26 +98,24 @@ class LinkedList {
             this._tail = null;
         }
 
-    } else if (index === this.length) {
+    } else if (index === (this.length - 1)) {
 
     	// last node
     	this._tail = this._tail.previous;
         this._tail.next = null;
 
 	} else {
-
+		var currentNode = this._head;
         // middle node
         while (count < index) {
         	currentNode = currentNode.next;
         	count++;
         }
 
-        DelNodePrev = currentNode.prev;
-        DelNode = currentNode;
-        DelNodeNext = currentNode.next;
-        DelNodePrev.next = DelNodeNext;
-        DelNodeNext.prev = DelNodePrev;
-        DelNode = null;
+        var temp = currentNode.prev;
+        currentNode.prev.next = currentNode.next;
+        currentNode.next.prev = currentNode.prev;
+        currentNode = null;
     }
 
     	this.length--;
@@ -129,16 +124,21 @@ class LinkedList {
     reverse() {
     	var currentNode = this._head,
     	length = this.length,
-        count = 1;
+        count = 0;
 
-    	while (count < length) {
-        	var temp = currentNode;
+        var temp = this._tail;
+        this._tail = this._head;
+        this._head = temp;
+
+        while (count < length) {
+        	temp = currentNode.next;
         	currentNode.next = currentNode.prev;
-        	currentNode.prev = temp.next;
-        	currentNode = temp.next;
+        	currentNode.prev = temp;
+        	currentNode = currentNode.prev;
+        	count++;
         }
 
-        return this;
+
     	//didn't work
     	/*var secondList = new LinkedList;
     		currentNode = this._tail,
