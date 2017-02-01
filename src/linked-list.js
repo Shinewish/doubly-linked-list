@@ -25,19 +25,11 @@ class LinkedList {
     }
 
     head() {
-    	if (this._head === null) {
-    		return null;
-    	} else {
-    	return this._head.data;
-    	}
+    	return this._head ? this._head.data : null;
     }
 
     tail() {
-    	if (this._tail === null) {
-    		return null;
-    	} else {
-    		return this._tail.data;
-    	}
+    	return this._tail ? this._tail.data : null;
     }
 
     at(index) {
