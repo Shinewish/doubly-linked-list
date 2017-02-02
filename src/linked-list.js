@@ -20,7 +20,6 @@ class LinkedList {
     	}
 
     	this.length++;
-
     	return this;
     }
 
@@ -33,37 +32,34 @@ class LinkedList {
     }
 
     at(index) {
-    	var currentNode = this._head,
-    	count = 0;
-    	//index should be valid
+    	var curNode = this._head,
+    		count = 0;
 
     	while (count < index) {
-    		currentNode = currentNode.next;
+    		curNode = curNode.next;
     		count++;
     	}
 
-    	return currentNode.data;
+    	return curNode.data;
     }
 
     insertAt(index, data) {
     	var node = new Node(data),
-    		currentNode = this._head,
+    		curNode = this._head,
     		count = 0;
 
-    	if (this.length === 0) {
+    	if (!this.length) {
     		this.append(data);
     	} else {
     	while (count < index) {
-    		currentNode = currentNode.next;
+    		curNode = curNode.next;
     		count++;
     	}
     	
-    	var prevNote = currentNode.prev;
-    	
-    	node.next = currentNode;
-    	node.prev = prevNote;
-    	prevNote.next = node;
-    	currentNode.prev = node;
+    	node.next = curNode;
+    	node.prev = curNode.prev;
+    	curNode.prev.next = node;
+    	curNode.prev = node;
 
     	this.length++;
     	}
@@ -72,7 +68,7 @@ class LinkedList {
     }
 
     isEmpty() {
-    	return !this.length; // let's try it
+    	return !this.length; 
     }
 
     clear() {
@@ -84,13 +80,11 @@ class LinkedList {
     }
 
     deleteAt(index) {    	
-		var currentNode = this._head,
-        length = this.length,
-        count = 0;
+		var curNode = this._head;
  
     // first node
     if (index === 0) {
-        this._head = currentNode.next;
+        this._head = curNode.next;
          // second node exists
         if (this._head) {
             this._head.prev = null;
@@ -98,85 +92,56 @@ class LinkedList {
         } else {
             this._tail = null;
         }
-
+	// last node
     } else if (index === (this.length - 1)) {
-
-    	// last node
-    	this._tail = this._tail.previous;
+    	this._tail = this._tail.prev;
         this._tail.next = null;
-
+    // middle node
 	} else {
-		var currentNode = this._head;
-        // middle node
+		var curNode = this._head,
+        	count = 0;
+
         while (count < index) {
-        	currentNode = currentNode.next;
+        	curNode = curNode.next;
         	count++;
         }
-
-        var temp = currentNode.prev;
-        currentNode.prev.next = currentNode.next;
-        currentNode.next.prev = currentNode.prev;
-        currentNode = null;
+        curNode.prev.next = curNode.next;
+        curNode.next.prev = curNode.prev;
     }
 
     	this.length--;
-
     	return this;
     }
 
     reverse() {
-    	var currentNode = this._head,
-    	length = this.length,
-        count = 0;
+    	var curNode = this._head,
+        	count = 0;
+
+        while (count < this.length) {
+        	temp = curNode.next;
+        	curNode.next = curNode.prev;
+        	curNode.prev = temp;
+        	curNode = curNode.prev;
+        	count++;
+        }
 
         var temp = this._tail;
         this._tail = this._head;
         this._head = temp;
 
-        while (count < length) {
-        	temp = currentNode.next;
-        	currentNode.next = currentNode.prev;
-        	currentNode.prev = temp;
-        	currentNode = currentNode.prev;
-        	count++;
-        }
-
         return this;
-
-
-    	//didn't work
-    	/*var secondList = new LinkedList;
-    		currentNode = this._tail,
-        	count = this.length;
-
-    	while (count > 0) {
-        	secondList.append(currentNode.data);
-        	currentNode = currentNode.prev;
-        	count--;
-        }
-
-        count = 0;
-        */
-
-        /*while (count < length) {
-        	secondList.append(currentNode.data);
-        	currentNode = currentNode.prev;
-        	count--;
-        }*/
     }
 
     indexOf(data) {
-    	var currentNode = this._head,
-        	length = this.length,
+    	var curNode = this._head,
         	index = -1,
-    		count = 1;
-
+    		count = 0;
     	
-    	while (count <= this.length) {
-        	if (currentNode.data === data) {
-        		index = count - 1;
+    	while (count < this.length) {
+        	if (curNode.data === data) {
+        		index = count;
         	}
-        	currentNode = currentNode.next;
+        	curNode = curNode.next;
         	count++;
         }
 
